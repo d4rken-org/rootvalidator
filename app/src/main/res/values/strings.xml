@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Root Validator</string>
+    <string name="share_result">Share result</string>
+    <string name="follow_darken">Follow darken</string>
+    <string name="share">Share</string>
+    <string name="about_version_message">%1$s %2$s (%3$s) by darken.\nFind out about new stuff, follow me.</string>
+    <string name="about">About</string>
+    <string name="progress_wait">One moment, please.</string>
+    <string name="welcome_title">Welcome!</string>
+    <string name="welcome_message">This app will test your root setup, it will not enable root access.</string>
+    <string name="include_extended_message">Do you want to include extended test output?</string>
+    <string name="button_simple">Simple</string>
+    <string name="button_extended">Extended</string>
+    <string name="cant_open">Can\'t open: %1$s</string>
+</resources>

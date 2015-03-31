@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_default">#00e676</color>
+
+    <color name="background">#303030</color>
+    <color name="card_background">#37474f</color>
+
+    <color name="primary_light">#35ca86</color>
+    <color name="primary_default">#0fab64</color>
+    <color name="primary_dark">#0b834d</color>
+
+    <color name="positive">@color/primary_default</color>
+    <color name="neutral">#03a9f4</color>
+    <color name="negative">#ff9800</color>
+
+    <color name="textcolor_primary">#DEFFFFFF</color>
+    <color name="textcolor_secondary">#8AFFFFFF</color>
+</resources>

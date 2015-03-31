@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="ActionBarTitleStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+        <item name="android:textColor">@color/textcolor_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ActionBarSubTitleStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
+        <item name="android:textColor">@color/accent_default</item>
+    </style>
+
+    <style name="TextStyleBody1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textcolor_primary</item>
+    </style>
+
+    <style name="TextStyleBody2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textcolor_primary</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-medium</item>
+
+    </style>
+
+    <style name="TextStyleCaption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/textcolor_secondary</item>
+    </style>
+
+    <style name="TextStyleHeadline">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/textcolor_primary</item>
+    </style>
+
+    <style name="TextStyleTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-medium</item>
+        <item name="android:textColor">@color/textcolor_primary</item>
+    </style>
+
+    <style name="TextStyleSubhead">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/textcolor_primary</item>
+    </style>
+
+    <style name="TextStyleDisplay1">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/textcolor_primary</item>
+    </style>
+
+    <style name="DefaultButton">
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
+        <item name="android:textColor">@color/textcolor_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="DialogButtonStyle" parent="DefaultButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:minWidth">64dp</item>
+        <item name="android:background">@drawable/dialog_button_selector</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textColor">@color/accent_default</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

@@ -1,0 +1,66 @@
+buildscript {
+    repositories {
+        maven { url 'http://download.crashlytics.com/maven' }
+    }
+
+    dependencies {
+        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.14.7'
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'crashlytics'
+
+repositories {
+    maven { url 'http://download.crashlytics.com/maven' }
+}
+
+
+def gitSha() {
+    return 'git rev-parse --short HEAD'.execute().text.trim()
+}
+
+//def buildTime() {
+//    def df = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss'Z'")
+//    df.setTimeZone(TimeZone.getTimeZone("GMT+1"))
+//    return df.format(new Date())
+//}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "eu.thedarken.rootvalidator"
+        minSdkVersion 10
+        targetSdkVersion 22
+        versionCode 21
+        versionName "2.0.1"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            if (variant.buildType.name == "release") {
+                variant.outputs.each { output ->
+                    def file = output.outputFile
+                    output.outputFile = new File(file.parent, "RootValidator-v" + defaultConfig.versionName + "-" + defaultConfig.versionCode + "-" + gitSha() + ".apk")
+                }
+            }
+        }
+    }
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:recyclerview-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:support-annotations:22.0.0'
+    compile 'com.android.support:cardview-v7:22.0.0'
+    compile 'com.melnykov:floatingactionbutton:1.1.0'
+    compile 'de.hdodenhof:circleimageview:1.2.1'
+    compile 'com.crashlytics.android:crashlytics:1.1.13'
+    compile 'com.google.android.gms:play-services-ads:7.0.0'
+
+}

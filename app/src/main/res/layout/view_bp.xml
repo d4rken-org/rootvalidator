@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_margin="4dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_bp_icon"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginRight="8dp"
+        android:src="@color/positive"/>
+
+    <TextView
+        android:id="@+id/tv_bp_text"
+        style="@style/TextStyleCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+</LinearLayout>

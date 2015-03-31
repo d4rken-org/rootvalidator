@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <!-- customize the color palette -->
+        <item name="colorPrimary">@color/primary_default</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent_default</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+</resources>

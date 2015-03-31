@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_shortAnimTime">
+    <item android:state_pressed="true">
+        <inset
+            android:insetBottom="6dp"
+            android:insetLeft="4dp"
+            android:insetRight="4dp"
+            android:insetTop="6dp">
+            <shape
+                android:shape="rectangle">
+                <corners android:radius="2dp"/>
+                <solid android:color="@color/background"/>
+                <padding
+                    android:bottom="4dp"
+                    android:left="8dp"
+                    android:right="8dp"
+                    android:top="4dp"/>
+            </shape>
+        </inset>
+    </item>
+    <item>
+        <inset
+            android:insetBottom="6dp"
+            android:insetLeft="4dp"
+            android:insetRight="4dp"
+            android:insetTop="6dp">
+            <shape
+                android:shape="rectangle">
+                <corners android:radius="2dp"/>
+                <solid android:color="@android:color/transparent"/>
+                <padding
+                    android:bottom="4dp"
+                    android:left="8dp"
+                    android:right="8dp"
+                    android:top="4dp"/>
+            </shape>
+        </inset>
+    </item>
+</selector>

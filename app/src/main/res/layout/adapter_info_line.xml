@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="2dp"
+    android:foreground="?selectableItemBackground"
+    app:cardBackgroundColor="@color/card_background"
+    app:cardCornerRadius="2dp"
+    app:cardUseCompatPadding="true"
+    app:contentPaddingBottom="16dp"
+    app:contentPaddingLeft="16dp"
+    app:contentPaddingRight="16dp"
+    app:contentPaddingTop="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="24dp"
+                android:src="@color/positive"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextStyleTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="Lorem ipsum dolor"/>
+
+            <ImageView
+                android:id="@+id/iv_expand_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_expand_more_white_24dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:visibility="gone"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
