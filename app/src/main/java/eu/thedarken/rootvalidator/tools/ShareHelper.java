@@ -24,7 +24,7 @@ public class ShareHelper {
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, _printOut.toString());
         try {
             activity.startActivity(Intent.createChooser(sharingIntent, activity.getResources().getString(R.string.share)));
-        } catch (ActivityNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(activity, "No app available to share results.", Toast.LENGTH_SHORT).show();
         }
