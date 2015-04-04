@@ -14,8 +14,8 @@ public class Helpers {
         try {
             Intent i = new Intent(Intent.ACTION_VIEW, link);
             activity.startActivity(i);
-            Toast.makeText(activity, activity.getString(R.string.cant_open, link.toString()), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
+            Toast.makeText(activity, activity.getString(R.string.cant_open, link.toString()), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
