@@ -21,6 +21,8 @@ public class SuBinaryTest extends ATest {
     private static final String TAG = "RV:SuBinaryTest";
     private static final Pattern KOUSH_SUPERUSER_PATTERN = Pattern.compile("^([0-9]{1,2})\\s([\\S]+)$");
     private static final Pattern CF_SUPERSU_PATTERN = Pattern.compile("^([0-9\\.]*):(SUPERSU)$");
+    private static final Pattern KINGUSERSU_PATTERN = Pattern.compile("^([0-9\\.]*):(kinguser_su)$");
+
     private List<String> mRaw;
 
     public SuBinaryTest(Context context) {
@@ -136,6 +138,14 @@ public class SuBinaryTest extends ATest {
                     binary.mType = SuBinary.Type.SUPERUSER;
                     binary.mVersion = kuMatcher.group(1);
                     binary.mExtra = kuMatcher.group(2);
+                    break;
+                }
+                // SUPERUSER from kinguser e.g. "3.43:kinguser_su"
+                Matcher kingMatcher = KINGUSERSU_PATTERN.matcher(line);
+                if (kingMatcher.matches()) {
+                    binary.mType = SuBinary.Type.KINGUSER;
+                    binary.mVersion = kingMatcher.group(1);
+                    binary.mExtra = kingMatcher.group(2);
                     break;
                 }
             }
