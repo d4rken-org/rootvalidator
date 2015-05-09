@@ -52,7 +52,7 @@ public class AboutDialog extends DialogFragment {
         mGPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Helpers.openLink(getActivity(),Uri.parse("https://plus.google.com/116634499773478773276"));
+                Helpers.openLink(v.getContext(),Uri.parse("https://plus.google.com/116634499773478773276"));
                 dismiss();
             }
         });
@@ -60,7 +60,7 @@ public class AboutDialog extends DialogFragment {
         mWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Helpers.openLink(getActivity(),Uri.parse("http://www.darken.eu"));
+                Helpers.openLink(v.getContext(),Uri.parse("http://www.darken.eu"));
                 dismiss();
             }
         });
@@ -68,7 +68,7 @@ public class AboutDialog extends DialogFragment {
         mTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Helpers.openLink(getActivity(),Uri.parse("http://www.twitter.com/d4rken"));
+                Helpers.openLink(v.getContext(),Uri.parse("http://www.twitter.com/d4rken"));
                 dismiss();
             }
         });
