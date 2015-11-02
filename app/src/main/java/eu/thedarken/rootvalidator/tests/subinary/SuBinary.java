@@ -13,7 +13,7 @@ import eu.thedarken.rootvalidator.tests.busybox.BusyBoxInfo;
 public class SuBinary implements Parcelable {
 
     public enum Type {
-        SUPERSU, SUPERUSER, KINGUSER, UNKNOWN
+        SUPERSU, SUPERUSER, KINGUSER, KINGOUSER, UNKNOWN
     }
 
     final File mPath;
