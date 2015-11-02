@@ -21,6 +21,7 @@ public class SuperUserAppTest extends ATest{
     private static final String PKG_SUPERUSER_CHAINFIRE = "eu.chainfire.supersu";
     private static final String PKG_SUPERUSER_KOUSH = "com.koushikdutta.superuser";
     private static final String PKG_SUPERUSER_KINGROOT = "com.kingroot.kinguser";
+    private static final String PKG_SUPERUSER_KINGOROOT = "com.kingouser.com";
 
     public SuperUserAppTest(Context context) {
         super(context);
@@ -34,6 +35,7 @@ public class SuperUserAppTest extends ATest{
         candidates.add(PKG_SUPERUSER_CHAINFIRE);
         candidates.add(PKG_SUPERUSER_KOUSH);
         candidates.add(PKG_SUPERUSER_KINGROOT);
+        candidates.add(PKG_SUPERUSER_KINGOROOT);
         try {
             List<PackageInfo> apps = getContext().getPackageManager().getInstalledPackages(0);
             for (PackageInfo app : apps) {
