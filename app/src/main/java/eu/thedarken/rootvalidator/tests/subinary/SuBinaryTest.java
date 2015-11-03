@@ -148,6 +148,7 @@ public class SuBinaryTest extends ATest {
                     binary.mVersion = kingMatcher.group(1);
                     binary.mExtra = kingMatcher.group(2);
                     break;
+                }
                 // SUPERUSER from kingouser e.g. "13 com.kingouser.com"
                 Matcher kingoMatcher = KINGOUSERSU_PATTERN.matcher(line);
                 if (kingoMatcher.matches()) {
