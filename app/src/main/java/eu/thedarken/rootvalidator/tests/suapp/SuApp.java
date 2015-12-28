@@ -6,22 +6,18 @@ import android.os.Parcelable;
 import java.io.File;
 
 import eu.thedarken.rootvalidator.tests.busybox.BusyBoxInfo;
+import eu.thedarken.rootvalidator.tests.subinary.SuBinary;
 
-/**
- * Created by darken on 19.02.2015.
- */
+
 public class SuApp implements Parcelable {
     private final String mPackageName;
     String mVersionName;
     int mVersionCode;
     String mName;
-    File mPrimaryPath;
-    File mSecondaryPath;
-
-    long mFirstInstallTime;
-    long mLastUpdateTime;
-
+    File mPath;
+    SuBinary.Type mType;
     boolean mSystemApp = false;
+
 
     public SuApp(String packageName) {
         this.mPackageName = packageName;
@@ -47,20 +43,12 @@ public class SuApp implements Parcelable {
         return mVersionCode;
     }
 
-    public File getPrimaryPath() {
-        return mPrimaryPath;
+    public File getPath() {
+        return mPath;
     }
 
-    public File getSecondaryPath() {
-        return mSecondaryPath;
-    }
-
-    public long getFirstInstallTime() {
-        return mFirstInstallTime;
-    }
-
-    public long getLastUpdateTime() {
-        return mLastUpdateTime;
+    public SuBinary.Type getType() {
+        return mType;
     }
 
     @Override
@@ -69,10 +57,7 @@ public class SuApp implements Parcelable {
                 "mVersionName:" + mVersionName + " | " +
                 "mVersionCode:" + mVersionCode + " | " +
                 "mName:" + mName + " | " +
-                "mPrimaryPath:" + mPrimaryPath + " | " +
-                "mSecondaryPath:" + mSecondaryPath + " | " +
-                "mFirstInstallTime:" + mFirstInstallTime + " | " +
-                "mLastUpdateTime:" + mLastUpdateTime + " | " +
+                "mPrimaryPath:" + mPath + " | " +
                 "mSystemApp:" + mSystemApp;
     }
 
@@ -81,13 +66,9 @@ public class SuApp implements Parcelable {
         mVersionName = in.readString();
         mVersionCode = in.readInt();
         mName = in.readString();
-        mPrimaryPath = new File(in.readString());
-        String secondaryPath = in.readString();
-        if (!secondaryPath.equals("NULL"))
-            mSecondaryPath = new File(secondaryPath);
-        mFirstInstallTime = in.readLong();
-        mLastUpdateTime = in.readLong();
+        mPath = new File(in.readString());
         mSystemApp = in.readByte() != 0;
+        mType = SuBinary.Type.valueOf(in.readString());
     }
 
     @Override
@@ -96,14 +77,9 @@ public class SuApp implements Parcelable {
         out.writeString(mVersionName);
         out.writeInt(mVersionCode);
         out.writeString(mName);
-        out.writeString(mPrimaryPath.getAbsolutePath());
-        if (mSecondaryPath != null)
-            out.writeString(mSecondaryPath.getAbsolutePath());
-        else
-            out.writeString("NULL");
-        out.writeLong(mFirstInstallTime);
-        out.writeLong(mLastUpdateTime);
+        out.writeString(mPath.getAbsolutePath());
         out.writeByte((byte) (mSystemApp ? 1 : 0));
+        out.writeString(mType.name());
     }
 
     @Override

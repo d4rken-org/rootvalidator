@@ -1,9 +1,5 @@
 package eu.thedarken.rootvalidator;
 
-/**
- * Created by darken on 13.02.2015.
- */
-
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
@@ -36,7 +32,6 @@ public class RVLoader extends AsyncTaskLoader<ArrayList<TestInfo>> {
     public void deliverResult(ArrayList<TestInfo> data) {
 
         if (isReset()) {
-            //No no no, bad Android, keep your race conditions
             if (mData != null)
                 onReleaseResources(mData);
         }
@@ -54,9 +49,6 @@ public class RVLoader extends AsyncTaskLoader<ArrayList<TestInfo>> {
     @Override
     protected void onStartLoading() {
         forceLoad();
-
-        // TODO we could deliver a cached result and monitor the provider for changes
-        // Keep in mind that we would only need to monitor for changes that affect the current search
     }
 
     @Override
@@ -80,7 +72,6 @@ public class RVLoader extends AsyncTaskLoader<ArrayList<TestInfo>> {
     }
 
     protected void onReleaseResources(ArrayList<TestInfo> data) {
-        // Hm nothing to realllllyyy release here, for now at least
     }
 
     @Override
@@ -92,14 +83,14 @@ public class RVLoader extends AsyncTaskLoader<ArrayList<TestInfo>> {
         RootInfo resultRoot = new RootTest(getContext()).test();
         result.add(resultRoot);
 
-        SuAppInfo resultSuAppTest = new SuperUserAppTest(getContext()).test();
-        result.add(resultSuAppTest);
-
         SuBinaryInfo resultSuBinaryTest = new SuBinaryTest(getContext()).test();
         result.add(resultSuBinaryTest);
 
-        BusyBoxInfo resultBusyboxTest = new BusyBoxTest(getContext()).test();
-        result.add(resultBusyboxTest);
+        SuAppInfo resultSuAppTest = new SuperUserAppTest(getContext(), resultSuBinaryTest).test();
+        result.add(resultSuAppTest);
+
+        BusyBoxInfo resultBusyBoxTest = new BusyBoxTest(getContext()).test();
+        result.add(resultBusyBoxTest);
 
         SELinuxInfo resultSeLinuxTest = new SELinuxTest(getContext()).test();
         if (ApiHelper.hasJellyBeanMR1())

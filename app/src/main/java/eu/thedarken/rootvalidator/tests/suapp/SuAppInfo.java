@@ -11,9 +11,7 @@ import eu.thedarken.rootvalidator.tests.BP;
 import eu.thedarken.rootvalidator.tests.Result;
 import eu.thedarken.rootvalidator.tests.TestInfo;
 
-/**
- * Created by darken on 14.02.2015.
- */
+
 public class SuAppInfo extends TestInfo {
     private final ArrayList<SuApp> mSuApps = new ArrayList<>();
 
@@ -51,12 +49,10 @@ public class SuAppInfo extends TestInfo {
     public List<BP> getCriterias(Context context) {
         List<BP> criterias = new ArrayList<>();
         for (SuApp suApp : mSuApps) {
-            StringBuilder builder = new StringBuilder();
-            builder.append(suApp.getPackageName() + " @ " + suApp.getVersionName() + " (" + suApp.getVersionCode() + ")");
-            builder.append("\n" + suApp.getPrimaryPath().getAbsolutePath());
-            if (suApp.getSecondaryPath() != null)
-                builder.append("\n" + suApp.getSecondaryPath().getAbsolutePath());
-            criterias.add(new BP(getPositiveD(context), builder.toString()));
+            String output = (suApp.getType() + "\n")
+                    + suApp.getPackageName() + " @ " + suApp.getVersionName() + " (" + suApp.getVersionCode() + ")\n"
+                    + suApp.getPath().getAbsolutePath();
+            criterias.add(new BP(getPositiveD(context), output));
         }
         return criterias;
     }

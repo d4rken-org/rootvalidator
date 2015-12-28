@@ -12,9 +12,7 @@ import eu.thedarken.rootvalidator.tests.BP;
 import eu.thedarken.rootvalidator.tests.Result;
 import eu.thedarken.rootvalidator.tests.TestInfo;
 
-/**
- * Created by darken on 14.02.2015.
- */
+
 public class SuBinaryInfo extends TestInfo {
     private final List<SuBinary> mSuBinaries = new ArrayList<>();
 
@@ -64,11 +62,11 @@ public class SuBinaryInfo extends TestInfo {
             Drawable d = getNeutralD(context);
             if (sub.isPrimary())
                 d = getPositiveD(context);
-            StringBuilder builder = new StringBuilder();
-            builder.append(sub.getVersion() + " " + sub.getExtra());
-            builder.append("\n" + sub.getPermission() + " " + sub.getOwner() + " " + sub.getGroup());
-            builder.append("\n" + sub.getPath().getAbsolutePath());
-            criterias.add(new BP(d, builder.toString()));
+            String output = (sub.getType() + "\n")
+                    + sub.getVersion() + " " + sub.getExtra() + "\n"
+                    + sub.getPermission() + " " + sub.getOwner() + " " + sub.getGroup() + "\n"
+                    + sub.getPath().getAbsolutePath();
+            criterias.add(new BP(d, output));
         }
         return criterias;
     }

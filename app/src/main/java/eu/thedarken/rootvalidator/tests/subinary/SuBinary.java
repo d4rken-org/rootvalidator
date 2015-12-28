@@ -7,18 +7,32 @@ import java.io.File;
 
 import eu.thedarken.rootvalidator.tests.busybox.BusyBoxInfo;
 
-/**
- * Created by darken on 19.02.2015.
- */
+
 public class SuBinary implements Parcelable {
 
     public enum Type {
-        SUPERSU, SUPERUSER, KINGUSER, KINGOUSER, UNKNOWN
+        CHAINFIRE_SUPERSU,
+        KOUSH_SUPERUSER,
+        KINGUSER,
+        VROOT,
+        KINGOUSER,
+        MIUI,
+        VENOMSU,
+        CYANOGENMOD,
+        CHAINSDD_SUPERUSER,
+        BAIDU_EASYROOT,
+        QIHOO_360,
+        DIANXINOSSUPERUSER,
+        BAIYI_MOBILE_EASYROOT,
+        TENCENT_APPMANAGER,
+        SE_SUPERUSER,
+        UNKNOWN,
+        NONE
     }
 
     final File mPath;
     final boolean mPrimary;
-    Type mType = Type.UNKNOWN;
+    Type mType = Type.NONE;
     String mVersion;
     String mExtra;
     String mPermission;

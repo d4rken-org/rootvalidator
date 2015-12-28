@@ -5,8 +5,10 @@ import android.content.Context;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,15 +16,50 @@ import eu.thedarken.rootvalidator.tests.ATest;
 import eu.thedarken.rootvalidator.tools.Cmd;
 import eu.thedarken.rootvalidator.tools.Logy;
 
-/**
- * Created by darken on 14.02.2015.
- */
 public class SuBinaryTest extends ATest {
     private static final String TAG = "RV:SuBinaryTest";
-    private static final Pattern KOUSH_SUPERUSER_PATTERN = Pattern.compile("^([0-9]{1,2})\\s([\\S]+)$");
-    private static final Pattern CF_SUPERSU_PATTERN = Pattern.compile("^([0-9\\.]*):(SUPERSU)$");
-    private static final Pattern KINGUSERSU_PATTERN = Pattern.compile("^([0-9\\.]*):(kinguser_su)$");
-    private static final Pattern KINGOUSERSU_PATTERN = Pattern.compile("^([0-9\\.]*):(com.kingouser.com)$");
+    private static final Map<Pattern, SuBinary.Type> PATTERNMAP;
+
+    static {
+        PATTERNMAP = new HashMap<>();
+        // Chainfire SU "2.25:SUPERSU"
+        PATTERNMAP.put(Pattern.compile("^([0-9\\.]*):(SUPERSU)$"), SuBinary.Type.CHAINFIRE_SUPERSU);
+        // Koush SU "16 com.koushikdutta.superuser"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.koushikdutta\\.superuser)$"), SuBinary.Type.KOUSH_SUPERUSER);
+        // KingUser "3.43:kinguser_su"
+        PATTERNMAP.put(Pattern.compile("^([0-9\\.]*):(kinguser_su)$"), SuBinary.Type.KINGUSER);
+        // KingoRoot "13 com.kingouser.com"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.kingouser\\.com)$"), SuBinary.Type.KINGOUSER);
+        // Cyanogen Mod e.g. "16 com.android.settings"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.android\\.settings)$"), SuBinary.Type.CYANOGENMOD);
+        // Cyanogen Mod clone e.g. "16 cm-su"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(cm-su)$"), SuBinary.Type.CYANOGENMOD);
+        // ChainsDD "3.3" or "3.1l" or "2.3.1-abcdefgh" etc.
+        PATTERNMAP.put(Pattern.compile("^(3\\.(?:3|2|1|0))(l?)$"), SuBinary.Type.CHAINSDD_SUPERUSER);
+        PATTERNMAP.put(Pattern.compile("^(3\\.0)-(beta2)$"), SuBinary.Type.CHAINSDD_SUPERUSER);
+        PATTERNMAP.put(Pattern.compile("^(3\\.1\\.1)(l?)$"), SuBinary.Type.CHAINSDD_SUPERUSER);
+        PATTERNMAP.put(Pattern.compile("^(3\\.0\\.3\\.2)(l?)$"), SuBinary.Type.CHAINSDD_SUPERUSER);
+        PATTERNMAP.put(Pattern.compile("^(3\\.0\\.(?:3|2|1))(l?)$"), SuBinary.Type.CHAINSDD_SUPERUSER);
+        PATTERNMAP.put(Pattern.compile("^(2.3.(?:1|2))(-[abcdefgh]{1,8})$"), SuBinary.Type.CHAINSDD_SUPERUSER);
+        // VROOT "11 com.mgyun.shua.su"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.mgyun\\.shua\\.su)$"), SuBinary.Type.VROOT);
+        // VenomSU, TEAM Venom "Venom SuperUser v21"
+        PATTERNMAP.put(Pattern.compile("^(?:Venom\\WSuperUser)\\W(v[0-9]+)$"), SuBinary.Type.VENOMSU);
+        // Qihoo 360 "360.cn es 1.6.0.6" com.qihoo.permmgr
+        PATTERNMAP.put(Pattern.compile("^(360\\Wcn\\Wes)\\W?([0-9\\.]+)$"), SuBinary.Type.QIHOO_360);
+        // MIUI "15 com.lbe.security.miui"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.lbe\\.security\\.miui)$"), SuBinary.Type.MIUI);
+        // Baidu Easyroot "15 com.baidu.easyroot"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.baidu\\.easyroot)$"), SuBinary.Type.BAIDU_EASYROOT);
+        // Koush SuperUser clone "26 com.dianxinos.superuser"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.dianxinos\\.superuser)$"), SuBinary.Type.DIANXINOSSUPERUSER);
+        // Koush SuperUser clone "16 com.baiyi_mobile.easyroot"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.baiyi_mobile\\.easyroot)$"), SuBinary.Type.BAIYI_MOBILE_EASYROOT);
+        // CyanogenMod SuperUser clone "16 com.tencent.qrom.appmanager"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(com\\.tencent\\.qrom\\.appmanager)$"), SuBinary.Type.TENCENT_APPMANAGER);
+        // https://github.com/seSuperuser/Superuser "16 me.phh.superuser cm-su"
+        PATTERNMAP.put(Pattern.compile("^([0-9]*)\\W(me\\.phh\\.superuser)\\W([\\W\\w]*)$"), SuBinary.Type.SE_SUPERUSER);
+    }
 
     private List<String> mRaw;
 
@@ -108,6 +145,7 @@ public class SuBinaryTest extends ATest {
     private void checkBinary(SuBinary binary) {
         Cmd cmd = new Cmd();
         cmd.setRaw(mRaw);
+        cmd.setTimeout(5000);
         cmd.addCommand("ls -l " + binary.getPath().getAbsolutePath());
         cmd.execute();
 
@@ -121,43 +159,31 @@ public class SuBinaryTest extends ATest {
         }
 
         cmd.clearCommands();
-        cmd.addCommand(binary.getPath().getAbsolutePath() + " --version");
+        cmd.addCommand("su --version");
         cmd.execute();
+        if (cmd.getExitCode() != Cmd.OK && cmd.getExitCode() != Cmd.COMMAND_NOT_FOUND) {
+            cmd.clearCommands();
+            cmd.addCommand("su --V");
+            cmd.addCommand("su -version");
+            cmd.addCommand("su -v");
+            cmd.addCommand("su -V");
+            cmd.execute();
+        }
         if (cmd.getExitCode() == Cmd.OK) {
+            binary.mType = SuBinary.Type.UNKNOWN;
             for (String line : cmd.getOutput()) {
-                // SUPERSU from Chainfire e.g. "2.25:SUPERSU"
-                Matcher cfMatcher = CF_SUPERSU_PATTERN.matcher(line);
-                if (cfMatcher.matches()) {
-                    binary.mType = SuBinary.Type.SUPERSU;
-                    binary.mVersion = cfMatcher.group(1);
-                    binary.mExtra = cfMatcher.group(2);
-                    break;
-                }
-                // SUPERUSER from Koush e.g. "16 com.android.settings"
-                Matcher kuMatcher = KOUSH_SUPERUSER_PATTERN.matcher(line);
-                if (kuMatcher.matches()) {
-                    binary.mType = SuBinary.Type.SUPERUSER;
-                    binary.mVersion = kuMatcher.group(1);
-                    binary.mExtra = kuMatcher.group(2);
-                    break;
-                }
-                // SUPERUSER from kinguser e.g. "3.43:kinguser_su"
-                Matcher kingMatcher = KINGUSERSU_PATTERN.matcher(line);
-                if (kingMatcher.matches()) {
-                    binary.mType = SuBinary.Type.KINGUSER;
-                    binary.mVersion = kingMatcher.group(1);
-                    binary.mExtra = kingMatcher.group(2);
-                    break;
-                }
-                // SUPERUSER from kingouser e.g. "13 com.kingouser.com"
-                Matcher kingoMatcher = KINGOUSERSU_PATTERN.matcher(line);
-                if (kingoMatcher.matches()) {
-                    binary.mType = SuBinary.Type.KINGOUSER;
-                    binary.mVersion = kingoMatcher.group(1);
-                    binary.mExtra = kingoMatcher.group(2);
-                    break;
+
+                for (Map.Entry<Pattern, SuBinary.Type> entry : PATTERNMAP.entrySet()) {
+                    Matcher matcher = entry.getKey().matcher(line);
+                    if (matcher.matches()) {
+                        binary.mType = entry.getValue();
+                        binary.mVersion = matcher.group(1);
+                        binary.mExtra = matcher.group(2);
+                        break;
+                    }
                 }
             }
         }
     }
+
 }
