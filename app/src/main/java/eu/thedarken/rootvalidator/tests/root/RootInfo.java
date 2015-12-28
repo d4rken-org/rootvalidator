@@ -11,6 +11,7 @@ import eu.thedarken.rootvalidator.tests.BP;
 import eu.thedarken.rootvalidator.tests.Result;
 import eu.thedarken.rootvalidator.tests.TestInfo;
 import eu.thedarken.rootvalidator.tests.busybox.BusyBoxInfo;
+import eu.thedarken.rootvalidator.tools.Cmd;
 
 /**
  * Created by darken on 13.02.2015.
@@ -19,6 +20,7 @@ public class RootInfo extends TestInfo {
     boolean mGotRoot = false;
     boolean mSuLaunchesShell = false;
     boolean mBinaryIssue = false;
+    int mExitCode = 99;
 
     public RootInfo() {
         super("General Root Test");
@@ -55,7 +57,8 @@ public class RootInfo extends TestInfo {
             criterias.add(new BP(getPositiveD(context), "su binary launches a shell."));
         if (mGotRoot)
             criterias.add(new BP(getPositiveD(context), "Root UID obtained."));
-
+        if (mExitCode != Cmd.OK)
+            criterias.add(new BP(getNegativeD(context), "Root shell had non OK exitcode (" + mExitCode + ")."));
         return criterias;
     }
 

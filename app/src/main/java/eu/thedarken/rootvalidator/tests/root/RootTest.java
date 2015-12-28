@@ -27,7 +27,8 @@ public class RootTest extends ATest {
         cmd.addCommand("echo -RVEOF-");
         cmd.addCommand("id");
         cmd.execute();
-        if (cmd.getExitCode() == Cmd.OK) {
+        result.mExitCode = cmd.getExitCode();
+        if (cmd.getExitCode() == Cmd.OK || cmd.getExitCode() == Cmd.OUT_OF_RANGE) {
             for (String line : cmd.getOutput()) {
                 if (line.contains("uid=0")) {
                     Logy.i(TAG, "Root try successfull, we got ROOT :D!");
@@ -38,7 +39,7 @@ public class RootTest extends ATest {
             }
             if (result.mSuLaunchesShell && !result.mGotRoot)
                 Logy.i(TAG, "'su' launches a shell, but 'id' seemed to fail.");
-        } else if (cmd.getExitCode() == Cmd.COMMAND_FAILED) {
+        } else if (cmd.getExitCode() == Cmd.COMMAND_NOT_FOUND) {
             // System has no id binary???
             Logy.i(TAG, "IOException, System has no id or echo binary?");
             result.mBinaryIssue = true;

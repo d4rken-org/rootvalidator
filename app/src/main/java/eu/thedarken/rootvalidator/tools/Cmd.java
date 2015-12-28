@@ -17,41 +17,41 @@ public class Cmd {
     public static final int OK = 0;
     public static final int PROBLEM = 1;
 
-    public static final int COMMAND_PERMISSION_PROBLEM = 126;
-    public static final int COMMAND_FAILED = 127;
+    public static final int COMMAND_NOT_FOUND = 127;
     public static final int INTERRUPTED = 130;
-    private int exitcode = INIT;
-    private Integer timeout = 0;
-    private Executor exe;
-    private final ArrayList<String> commands = new ArrayList<>();
-    private ArrayList<String> output = new ArrayList<>();
-    private ArrayList<String> errors = new ArrayList<>();
+    public static final int OUT_OF_RANGE = 255;
+    private int mExitcode = INIT;
+    private Integer mTimeout = 0;
+    private Executor mExecutor;
+    private final ArrayList<String> mCommands = new ArrayList<>();
+    private ArrayList<String> mOutput = new ArrayList<>();
+    private ArrayList<String> mErrors = new ArrayList<>();
     private long SHELLDELAY = 100;
     private boolean DEBUG = BuildConfig.DEBUG;
     private final String TAG = Cmd.class.getName();
-    private boolean useExit = true;
+    private boolean mUseExit = true;
     private String mRuntimeExec = "sh";
     private List<String> mRaw;
 
     public void execute() {
-        exe = new Executor(commands);
+        mExecutor = new Executor(mCommands);
         if (DEBUG) {
             Log.d(TAG, "SHELLDELAY:" + SHELLDELAY);
         }
-        exe.start();
+        mExecutor.start();
         try {
-            if (timeout == 0) {
-                exe.join();
+            if (mTimeout == 0) {
+                mExecutor.join();
             } else {
-                Log.i(TAG, "timeout is " + timeout);
-                exe.join(timeout);
+                Log.i(TAG, "timeout is " + mTimeout);
+                mExecutor.join(mTimeout);
             }
-            if (output == null)
-                output = new ArrayList<>();
-            if (errors == null)
-                errors = new ArrayList<>();
+            if (mOutput == null)
+                mOutput = new ArrayList<>();
+            if (mErrors == null)
+                mErrors = new ArrayList<>();
         } catch (InterruptedException e) {
-            exe.interrupt();
+            mExecutor.interrupt();
             Thread.currentThread().interrupt();
         }
     }
@@ -86,7 +86,7 @@ public class Cmd {
                     if (DEBUG)
                         Log.d(TAG, s);
                 }
-                if (useExit)
+                if (mUseExit)
                     os.write("exit\n");
                 os.flush();
                 os.close();
@@ -112,21 +112,21 @@ public class Cmd {
             } catch (IOException e) {
                 if (DEBUG)
                     Log.w(this.TAG, "IOException, command failed? not found?");
-                exitcode = COMMAND_FAILED;
+                exitcode = COMMAND_NOT_FOUND;
             } finally {
                 if (q != null)
                     q.destroy();
                 if (output_harvester != null)
-                    Cmd.this.output = output_harvester.getHarvest();
+                    Cmd.this.mOutput = output_harvester.getHarvest();
                 if (error_harvester != null)
-                    Cmd.this.errors = error_harvester.getHarvest();
-                Cmd.this.exitcode = this.exitcode;
+                    Cmd.this.mErrors = error_harvester.getHarvest();
+                Cmd.this.mExitcode = this.exitcode;
 
                 if (mRaw != null) {
                     mRaw.addAll(this.commands);
-                    mRaw.add("Exitcode:" + Cmd.this.exitcode);
-                    mRaw.addAll(Cmd.this.output);
-                    mRaw.addAll(Cmd.this.errors);
+                    mRaw.add("Exitcode:" + Cmd.this.mExitcode);
+                    mRaw.addAll(Cmd.this.mOutput);
+                    mRaw.addAll(Cmd.this.mErrors);
                     mRaw.add("### END ###");
                     mRaw.add(" ");
                 }
@@ -147,19 +147,19 @@ public class Cmd {
     }
 
     public void addCommand(String c) {
-        commands.add(c);
+        mCommands.add(c);
     }
 
     public void clearCommands() {
-        this.commands.clear();
+        this.mCommands.clear();
     }
 
     public void setTimeout(int ms) {
-        timeout = ms;
+        mTimeout = ms;
     }
 
     public void useExit(boolean useExit) {
-        this.useExit = useExit;
+        this.mUseExit = useExit;
     }
 
     public void setShellDelay(long ms) {
@@ -167,19 +167,19 @@ public class Cmd {
     }
 
     public int getCommandCount() {
-        return this.commands.size();
+        return this.mCommands.size();
     }
 
     public ArrayList<String> getOutput() {
-        return output;
+        return mOutput;
     }
 
     public ArrayList<String> getErrors() {
-        return errors;
+        return mErrors;
     }
 
     public int getExitCode() {
-        return exitcode;
+        return mExitcode;
     }
 
     class StreamHarvester extends Thread {
