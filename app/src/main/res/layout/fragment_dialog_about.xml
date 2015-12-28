@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Project Root Validator
+  ~
+  ~ @link https://github.com/d4rken/rootvalidator
+  ~ @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
@@ -29,6 +36,16 @@
             android:paddingBottom="4dp"
             tools:text="RootValidator v2.0 (20) by darken.\nFind out about new stuff, follow me."
             android:textColor="@color/textcolor_secondary"/>
+
+        <TextView
+            style="@style/TextStyleBody2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:text="This app is open-source:\nhttps://github.com/d4rken/rootvalidator"
+            android:autoLink="web"
+            android:textColor="@color/textcolor_secondary"
+            tools:ignore="HardcodedText"/>
 
         <TextView
             android:id="@+id/tv_thanks_fab"
