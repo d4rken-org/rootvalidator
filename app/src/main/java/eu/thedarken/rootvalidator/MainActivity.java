@@ -10,8 +10,9 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import io.fabric.sdk.android.Fabric;
 import java.io.File;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends ActionBarActivity {
     private Fragment mFragment;
@@ -41,6 +42,7 @@ public class MainActivity extends ActionBarActivity {
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                     .addTestDevice("C34CF836138E576F0C3CC8BBF6B19388")
+                    .addTestDevice("A6A278A2F9CF28BD949FC2265AEAE62F")
                     .build();
             mAdView.loadAd(adRequest);
         } else {
