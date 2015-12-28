@@ -56,9 +56,9 @@ public class SuBinaryInfo extends TestInfo {
         List<BP> criterias = new ArrayList<>();
         SuBinary primSU = getPrimary();
         if (primSU != null) {
-            criterias.add(new BP(getPositiveD(context), "su binary is avaiable via $PATH."));
+            criterias.add(new BP(getPositiveD(context), "su binary is available via $PATH."));
         } else {
-            criterias.add(new BP(getNegativeD(context), "su binary avaiable via $PATH."));
+            criterias.add(new BP(getNegativeD(context), "su binary not available via $PATH."));
         }
         for (SuBinary sub : mSuBinaries) {
             Drawable d = getNeutralD(context);
