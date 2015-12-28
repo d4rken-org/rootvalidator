@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.busybox;
 
 import android.os.Parcel;
@@ -8,9 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by darken on 19.02.2015.
- */
 public class BusyBox implements Parcelable {
     protected static final String[] APPLETS = {"[", "[[", "acpid", "addgroup", "adduser", "adjtimex", "ar", "arp", "arping", "ash", "awk", "basename", "beep", "blkid",
             "brctl", "bunzip2", "bzcat", "bzip2", "cal", "cat", "catv", "chat", "chattr", "chgrp", "chmod", "chown", "chpasswd", "chpst", "chroot", "chrt",

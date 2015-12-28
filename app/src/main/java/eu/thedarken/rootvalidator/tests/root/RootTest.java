@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.root;
 
 import android.content.Context;
@@ -8,9 +15,6 @@ import eu.thedarken.rootvalidator.tests.ATest;
 import eu.thedarken.rootvalidator.tools.Cmd;
 import eu.thedarken.rootvalidator.tools.Logy;
 
-/**
- * Created by darken on 14.02.2015.
- */
 public class RootTest extends ATest {
     private static final String TAG = "RV:RootTest";
 

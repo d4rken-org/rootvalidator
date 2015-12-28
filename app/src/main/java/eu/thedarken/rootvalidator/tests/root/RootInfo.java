@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.root;
 
 import android.content.Context;
@@ -13,9 +20,6 @@ import eu.thedarken.rootvalidator.tests.TestInfo;
 import eu.thedarken.rootvalidator.tests.busybox.BusyBoxInfo;
 import eu.thedarken.rootvalidator.tools.Cmd;
 
-/**
- * Created by darken on 13.02.2015.
- */
 public class RootInfo extends TestInfo {
     boolean mGotRoot = false;
     boolean mSuLaunchesShell = false;

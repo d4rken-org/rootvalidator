@@ -1,10 +1,15 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests;
 
 import android.graphics.drawable.Drawable;
 
-/**
- * Created by darken on 19.02.2015.
- */
+
 public class BP {
     private final Drawable mPoint;
     private final String mText;

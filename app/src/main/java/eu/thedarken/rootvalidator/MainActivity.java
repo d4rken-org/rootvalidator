@@ -1,8 +1,15 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -14,7 +21,7 @@ import java.io.File;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private Fragment mFragment;
     private AdView mAdView;
     private FrameLayout mAdContainer;

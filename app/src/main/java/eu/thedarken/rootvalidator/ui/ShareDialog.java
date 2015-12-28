@@ -1,7 +1,15 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -16,9 +24,6 @@ import android.widget.TextView;
 import eu.thedarken.rootvalidator.R;
 
 
-/**
- * Created by darken on 22.01.2015.
- */
 public class ShareDialog extends DialogFragment {
     private Button mSimple, mExtended;
     private TextView mTitle, mMessage;
@@ -33,6 +38,7 @@ public class ShareDialog extends DialogFragment {
         show(activity.getSupportFragmentManager(), ShareDialog.class.getName());
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
@@ -70,6 +76,6 @@ public class ShareDialog extends DialogFragment {
     }
 
     public interface ShareCallback {
-        public void onShare(boolean extended);
+        void onShare(boolean extended);
     }
 }

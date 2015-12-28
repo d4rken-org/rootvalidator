@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.ui;
 
 import android.graphics.Canvas;
@@ -6,9 +13,6 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
-/**
- * Created by darken on 30.12.2014.
- */
 public class ColorFramedCircleDrawable extends Drawable {
     private final Paint mPaint;
     private final int mColor;

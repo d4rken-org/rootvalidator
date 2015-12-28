@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.selinux;
 
 import android.content.Context;
@@ -12,9 +19,6 @@ import eu.thedarken.rootvalidator.tests.Result;
 import eu.thedarken.rootvalidator.tests.TestInfo;
 import eu.thedarken.rootvalidator.tools.ApiHelper;
 
-/**
- * Created by darken on 14.02.2015.
- */
 public class SELinuxInfo extends TestInfo {
     private State mState = State.UNKNOWN;
 

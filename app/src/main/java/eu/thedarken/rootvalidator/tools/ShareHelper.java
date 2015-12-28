@@ -1,7 +1,13 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tools;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -9,9 +15,7 @@ import java.util.ArrayList;
 
 import eu.thedarken.rootvalidator.R;
 
-/**
- * Created by darken on 22.02.2015.
- */
+
 public class ShareHelper {
 
     public static void share(Activity activity, String subject, ArrayList<String> out) {

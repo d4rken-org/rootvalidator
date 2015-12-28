@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.suapp;
 
 import android.content.Context;
@@ -13,7 +20,6 @@ import eu.thedarken.rootvalidator.tests.ATest;
 import eu.thedarken.rootvalidator.tests.subinary.SuBinary;
 import eu.thedarken.rootvalidator.tests.subinary.SuBinaryInfo;
 import eu.thedarken.rootvalidator.tools.Logy;
-
 
 public class SuperUserAppTest extends ATest {
 

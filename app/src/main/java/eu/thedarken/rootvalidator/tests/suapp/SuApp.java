@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.suapp;
 
 import android.os.Parcel;
@@ -7,7 +14,6 @@ import java.io.File;
 
 import eu.thedarken.rootvalidator.tests.busybox.BusyBoxInfo;
 import eu.thedarken.rootvalidator.tests.subinary.SuBinary;
-
 
 public class SuApp implements Parcelable {
     private final String mPackageName;

@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.ui;
 
 import android.content.Context;
@@ -5,9 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by darken on 15.02.2015.
- */
 public class EmptyRecyclerView extends RecyclerView {
     private View mEmptyView;
     final private AdapterDataObserver observer = new AdapterDataObserver() {

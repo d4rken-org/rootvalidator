@@ -1,8 +1,16 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.ui;
 
 import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,10 +25,6 @@ import eu.thedarken.rootvalidator.BuildConfig;
 import eu.thedarken.rootvalidator.R;
 import eu.thedarken.rootvalidator.tools.Helpers;
 
-
-/**
- * Created by darken on 22.01.2015.
- */
 public class AboutDialog extends DialogFragment {
     private Button mGPlus, mWeb, mTwitter;
     private TextView mMessage;
@@ -33,6 +37,7 @@ public class AboutDialog extends DialogFragment {
         show(activity.getSupportFragmentManager(), AboutDialog.class.getName());
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);

@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator;
 
 import android.os.Bundle;
@@ -31,9 +38,7 @@ import eu.thedarken.rootvalidator.ui.AboutDialog;
 import eu.thedarken.rootvalidator.ui.EmptyRecyclerView;
 import eu.thedarken.rootvalidator.ui.ShareDialog;
 
-/**
- * Created by darken on 26/01/15.
- */
+
 public class ValidatorFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<TestInfo>>, ShareDialog.ShareCallback {
     private static final String TAG = "RV:ValidatorFragment";
     private FloatingActionButton mFab;
@@ -103,12 +108,6 @@ public class ValidatorFragment extends Fragment implements LoaderManager.LoaderC
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
         }
-//        getView().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                mFab.performClick();
-//            }
-//        }, 3000);
     }
 
     @Override
@@ -238,7 +237,7 @@ public class ValidatorFragment extends Fragment implements LoaderManager.LoaderC
                 toShare.add("RAW:");
                 toShare.addAll(testInfo.getRaw());
             }
-            toShare.add("##### " + testInfo.getTitle() +" #####\n");
+            toShare.add("##### " + testInfo.getTitle() + " #####\n");
         }
         ShareHelper.share(getActivity(), "RootValidator Results", toShare);
     }

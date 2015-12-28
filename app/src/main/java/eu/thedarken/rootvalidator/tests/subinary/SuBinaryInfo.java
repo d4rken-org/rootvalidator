@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.subinary;
 
 import android.content.Context;
@@ -11,7 +18,6 @@ import java.util.List;
 import eu.thedarken.rootvalidator.tests.BP;
 import eu.thedarken.rootvalidator.tests.Result;
 import eu.thedarken.rootvalidator.tests.TestInfo;
-
 
 public class SuBinaryInfo extends TestInfo {
     private final List<SuBinary> mSuBinaries = new ArrayList<>();

@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator;
 
 import android.content.Context;
@@ -15,9 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import eu.thedarken.rootvalidator.tests.BP;
 import eu.thedarken.rootvalidator.tests.TestInfo;
 
-/**
- * Created by darken on 13.02.2015.
- */
+
 public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final ArrayList<TestInfo> mData;
     private static final int NORMAL_TYPE = 0;

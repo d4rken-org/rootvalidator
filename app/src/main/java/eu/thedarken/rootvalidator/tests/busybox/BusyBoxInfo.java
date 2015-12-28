@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.busybox;
 
 import android.content.Context;
@@ -12,9 +19,6 @@ import eu.thedarken.rootvalidator.tests.BP;
 import eu.thedarken.rootvalidator.tests.Result;
 import eu.thedarken.rootvalidator.tests.TestInfo;
 
-/**
- * Created by darken on 14.02.2015.
- */
 public class BusyBoxInfo extends TestInfo {
     private final List<BusyBox> mBusyBoxes = new ArrayList<>();
 
@@ -75,11 +79,10 @@ public class BusyBoxInfo extends TestInfo {
                 d = getPositiveD(context);
             if (bb.getAvailableApplets().isEmpty())
                 d = getNegativeD(context);
-            StringBuilder builder = new StringBuilder();
-            builder.append(bb.getVersion() + ", " + bb.getAvailableApplets().size() + " applets.");
-            builder.append("\n" + bb.getPermission() + " " + bb.getOwner() + " " + bb.getGroup());
-            builder.append("\n" + bb.getPath().getAbsolutePath());
-            criterias.add(new BP(d, builder.toString()));
+            String builder = (bb.getVersion() + ", " + bb.getAvailableApplets().size() + " applets.\n")
+                    + bb.getPermission() + " " + bb.getOwner() + " " + bb.getGroup() + "\n"
+                    + bb.getPath().getAbsolutePath();
+            criterias.add(new BP(d, builder));
         }
         return criterias;
     }

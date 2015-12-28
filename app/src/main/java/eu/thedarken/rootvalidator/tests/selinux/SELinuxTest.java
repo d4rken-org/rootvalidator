@@ -1,3 +1,10 @@
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 package eu.thedarken.rootvalidator.tests.selinux;
 
 import android.content.Context;
@@ -10,9 +17,6 @@ import eu.thedarken.rootvalidator.tests.ATest;
 import eu.thedarken.rootvalidator.tools.Cmd;
 import eu.thedarken.rootvalidator.tools.Logy;
 
-/**
- * Created by darken on 14.02.2015.
- */
 public class SELinuxTest extends ATest {
     private final static String SELINUX_GETENFORCE_DISABLED = "Disabled";
     private final static String SELINUX_GETENFORCE_PERMISSIVE = "Permissive";
