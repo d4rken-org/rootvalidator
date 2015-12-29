@@ -176,10 +176,10 @@ public class SuBinaryTest extends ATest {
             cmd.addCommand("su -V");
             cmd.execute();
         }
-        if (cmd.getExitCode() == Cmd.OK) {
+        if (cmd.getExitCode() != Cmd.COMMAND_NOT_FOUND)
             binary.mType = SuBinary.Type.UNKNOWN;
+        if (cmd.getExitCode() == Cmd.OK) {
             for (String line : cmd.getOutput()) {
-
                 for (Map.Entry<Pattern, SuBinary.Type> entry : PATTERNMAP.entrySet()) {
                     Matcher matcher = entry.getKey().matcher(line);
                     if (matcher.matches()) {
