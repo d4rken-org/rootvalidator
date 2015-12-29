@@ -19,6 +19,13 @@ def gitSha() {
     return 'git rev-parse --short HEAD'.execute().text.trim()
 }
 
+/*
+ * Project Root Validator
+ *
+ * @link https://github.com/d4rken/rootvalidator
+ * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
+ */
+
 //def buildTime() {
 //    def df = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss'Z'")
 //    df.setTimeZone(TimeZone.getTimeZone("GMT+1"))
@@ -33,8 +40,8 @@ android {
         applicationId "eu.thedarken.rootvalidator"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 24
-        versionName "2.1.0"
+        versionCode 25
+        versionName "2.1.1"
     }
     buildTypes {
         release {
