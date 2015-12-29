@@ -58,7 +58,7 @@ public class SuperUserAppTest extends ATest {
         SuAppInfo result = new SuAppInfo();
         for (Map.Entry<SuBinary.Type, String[]> entry : SUAPP_MAPPING.entrySet()) {
             // Otherwise we show the settings app as superuser app on stock ROMs
-            if (mResultSuBinaryTest.getPrimary().getType() != SuBinary.Type.CYANOGENMOD && entry.getKey() == SuBinary.Type.CYANOGENMOD)
+            if (mResultSuBinaryTest.getPrimary() == null || mResultSuBinaryTest.getPrimary().getType() != SuBinary.Type.CYANOGENMOD && entry.getKey() == SuBinary.Type.CYANOGENMOD)
                 continue;
             for (String pkg : entry.getValue()) {
                 try {
