@@ -40,8 +40,8 @@ android {
         applicationId "eu.thedarken.rootvalidator"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 25
-        versionName "2.1.1"
+        versionCode 26
+        versionName "2.1.2"
     }
     buildTypes {
         release {
