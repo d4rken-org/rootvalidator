@@ -184,8 +184,11 @@ public class SuBinaryTest extends ATest {
                     Matcher matcher = entry.getKey().matcher(line);
                     if (matcher.matches()) {
                         binary.mType = entry.getValue();
-                        binary.mVersion = matcher.group(1);
-                        binary.mExtra = matcher.group(2);
+                        if (matcher.groupCount() == 1) {
+                            binary.mVersion = matcher.group(1);
+                        } else if (matcher.groupCount() == 2) {
+                            binary.mExtra = matcher.group(2);
+                        }
                         break;
                     }
                 }
