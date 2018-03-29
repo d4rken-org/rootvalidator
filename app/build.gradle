@@ -1,19 +1,4 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.21.2'
-    }
-}
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
 
 def gitSha() {
     return 'git rev-parse --short HEAD'.execute().text.trim()
@@ -26,22 +11,38 @@ def gitSha() {
  * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
  */
 
-//def buildTime() {
-//    def df = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss'Z'")
-//    df.setTimeZone(TimeZone.getTimeZone("GMT+1"))
-//    return df.format(new Date())
-//}
-
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    def signingPropFile = new File(System.properties['user.home'], ".appconfig/rootvalidator/signing.properties")
+    if (signingPropFile.canRead()) {
+        Properties signingProps = new Properties()
+        signingProps.load(new FileInputStream(signingPropFile))
+
+        signingConfigs {
+            release {
+                storeFile new File(signingProps['release.storePath'])
+                keyAlias signingProps['release.keyAlias']
+                storePassword signingProps['release.storePassword']
+                keyPassword signingProps['release.keyPassword']
+            }
+        }
+        android {
+            buildTypes {
+                release {
+                    signingConfig signingConfigs.release
+                }
+            }
+        }
+    }
+
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "eu.thedarken.rootvalidator"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 26
-        versionName "2.1.2"
+        versionCode 27
+        versionName "2.2"
     }
     buildTypes {
         release {
@@ -49,12 +50,11 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        applicationVariants.all { variant ->
-            if (variant.buildType.name == "release") {
-                variant.outputs.each { output ->
-                    def file = output.outputFile
-                    output.outputFile = new File(file.parent, "RootValidator-v" + defaultConfig.versionName + "-" + defaultConfig.versionCode + "-" + gitSha() + ".apk")
-                }
+    }
+    applicationVariants.all { variant ->
+        if (variant.buildType.name != "debug") {
+            variant.outputs.each { output ->
+                output.outputFileName = applicationId + "-v" + defaultConfig.versionName + "(" + defaultConfig.versionCode + ")-" + variant.buildType.name.toUpperCase() + "-" + gitSha() + ".apk"
             }
         }
     }
@@ -70,9 +70,4 @@ dependencies {
     compile "com.android.support:cardview-v7:${supportLibVersion}"
     compile 'com.melnykov:floatingactionbutton:1.3.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
-        transitive = true;
-    }
-
 }
