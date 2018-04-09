@@ -1,78 +1,125 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.21.2'
-    }
-}
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
+apply plugin: 'com.bugsnag.android.gradle'
 
 def gitSha() {
-    return 'git rev-parse --short HEAD'.execute().text.trim()
+    def p = 'git rev-parse --short HEAD'.execute([], project.rootDir)
+    p.waitFor()
+    if (p.exitValue() != 0) return ""
+    return p.text.trim()
 }
 
-/*
- * Project Root Validator
- *
- * @link https://github.com/d4rken/rootvalidator
- * @license https://github.com/d4rken/rootvalidator/blob/master/LICENSE GPLv3
- */
+bugsnag {
+    overwrite true
+}
 
-//def buildTime() {
-//    def df = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss'Z'")
-//    df.setTimeZone(TimeZone.getTimeZone("GMT+1"))
-//    return df.format(new Date())
-//}
+def versionMajor = 3
+def versionMinor = 0
+def versionTag = ""
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    def signingPropFile = new File(System.properties['user.home'], ".appconfig/rootvalidator/signing.properties")
+    if (signingPropFile.canRead()) {
+        Properties signingProps = new Properties()
+        signingProps.load(new FileInputStream(signingPropFile))
 
-    defaultConfig {
-        applicationId "eu.thedarken.rootvalidator"
-        minSdkVersion 10
-        targetSdkVersion 23
-        versionCode 26
-        versionName "2.1.2"
-    }
-    buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        signingConfigs {
+            release {
+                storeFile new File(signingProps['release.storePath'])
+                keyAlias signingProps['release.keyAlias']
+                storePassword signingProps['release.storePassword']
+                keyPassword signingProps['release.keyPassword']
+            }
         }
-        applicationVariants.all { variant ->
-            if (variant.buildType.name == "release") {
-                variant.outputs.each { output ->
-                    def file = output.outputFile
-                    output.outputFile = new File(file.parent, "RootValidator-v" + defaultConfig.versionName + "-" + defaultConfig.versionCode + "-" + gitSha() + ".apk")
+        android {
+            buildTypes {
+                release {
+                    signingConfig signingConfigs.release
                 }
             }
         }
     }
-}
-ext {
-    supportLibVersion = '23.1.1'
-}
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:support-annotations:${supportLibVersion}"
-    compile "com.android.support:appcompat-v7:${supportLibVersion}"
-    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
-    compile "com.android.support:cardview-v7:${supportLibVersion}"
-    compile 'com.melnykov:floatingactionbutton:1.3.0'
-    compile 'de.hdodenhof:circleimageview:2.0.0'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
-        transitive = true;
+
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+
+    Properties bugsnagProps = new Properties()
+    def bugsnagPropsFile = new File(System.properties['user.home'], ".appconfig/rootvalidator/bugsnag.properties")
+    if (bugsnagPropsFile.canRead()) bugsnagProps.load(new FileInputStream(bugsnagPropsFile))
+
+    defaultConfig {
+        applicationId "eu.thedarken.rootvalidator"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode versionMajor * 10000 + versionMinor
+        versionName "${versionMajor}.${versionMinor}${versionTag}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [apikey_bugsnag: ""]
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            manifestPlaceholders = [apikey_bugsnag: bugsnagProps.getProperty("bugsnag.apikey", "")]
+        }
+        applicationVariants.all { variant ->
+            if (variant.buildType.name != "debug") {
+                variant.outputs.each { output ->
+                    output.outputFileName = applicationId + "-v" + defaultConfig.versionName + "(" + defaultConfig.versionCode + ")-" + variant.buildType.name.toUpperCase() + "-" + gitSha() + ".apk"
+                }
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+ext {
+    supportLibVersion = '27.1.1'
+    daggerVersion = '2.13'
+}
+dependencies {
+    implementation "com.android.support:support-annotations:${supportLibVersion}"
+    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
+    implementation "com.android.support:cardview-v7:${supportLibVersion}"
+    implementation "com.android.support:design:${supportLibVersion}"
+
+    implementation 'eu.darken.rxshell:core:1.0.4'
+    implementation 'eu.darken.rxshell:root:1.0.4'
+    implementation 'eu.darken.mvpbakery:library:0.4.0'
+
+    implementation 'com.bugsnag:bugsnag-android:4.3.1'
+
+    implementation 'com.jakewharton.timber:timber:4.6.1'
+    compileOnly 'org.jetbrains:annotations:15.0'
+
+    //Dagger
+    implementation "com.google.dagger:dagger:${daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${daggerVersion}"
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+
+    implementation 'com.android.billingclient:billing:1.0'
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

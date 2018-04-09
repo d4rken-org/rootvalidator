@@ -17,3 +17,6 @@
 #}
 
 -keepattributes SourceFile,LineNumberTable
+
+# https://github.com/google/dagger/issues/645
+-dontwarn com.google.errorprone.annotations.*

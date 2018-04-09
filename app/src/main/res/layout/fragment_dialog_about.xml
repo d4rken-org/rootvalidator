@@ -47,28 +47,6 @@
             android:textColor="@color/textcolor_secondary"
             tools:ignore="HardcodedText"/>
 
-        <TextView
-            android:id="@+id/tv_thanks_fab"
-            style="@style/TextStyleBody2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:text="FAB by Oleksandr Melnykov\nhttps://github.com/makovkastar/FloatingActionButton"
-            android:autoLink="web"
-            android:textColor="@color/textcolor_secondary"
-            tools:ignore="HardcodedText"/>
-
-        <TextView
-            android:id="@+id/tv_thanks_civ"
-            style="@style/TextStyleBody2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:text="CircleImageView by Henning Dodenhof\nhttps://github.com/hdodenhof/CircleImageView"
-            android:autoLink="web"
-            android:textColor="@color/textcolor_secondary"
-            tools:ignore="HardcodedText"/>
-
     </LinearLayout>
 
     <LinearLayout

@@ -26,34 +26,33 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_icon"
+            <ImageView
+                android:id="@+id/icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginRight="24dp"
-                android:src="@color/positive"/>
+                android:src="@drawable/ic_indicator_neutral"/>
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/test_title"
                 style="@style/TextStyleTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_weight="1"
-                android:textSize="18sp"
                 tools:text="Lorem ipsum dolor"/>
 
             <ImageView
-                android:id="@+id/iv_expand_button"
+                android:id="@+id/expand_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_expand_more_white_24dp"/>
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_points"
+            android:id="@+id/point_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="56dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="gone"/>

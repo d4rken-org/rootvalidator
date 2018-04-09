@@ -1,37 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:fab="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/box_intro"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
 
-        <LinearLayout
-            android:id="@+id/ll_list_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <eu.thedarken.rootvalidator.ui.EmptyRecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <com.melnykov.fab.FloatingActionButton
-            android:id="@+id/fab"
+        <TextView
+            android:id="@+id/test_title"
+            style="@style/TextStyleTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            android:src="@null"
-            fab:fab_colorNormal="@color/primary_default"
-            fab:fab_colorPressed="@color/primary_light"
-            fab:fab_colorRipple="@color/primary_default"/>
-    </FrameLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="6dp"
+            android:text="@string/welcome_title"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_body"
+            style="@style/TextStyleBody1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/test_title"
+            android:text="@string/welcome_message"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/box_working"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_moment"
+            style="@style/TextStyleHeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/progress_wait"/>
+
+        <ProgressBar
+            android:id="@+id/pb_moment"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="64dp"
+        android:paddingTop="16dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@null"
+        android:visibility="gone"
+        app:elevation="4dp"
+        app:fabSize="normal"
+        app:rippleColor="@android:color/white"/>
+
+</android.support.design.widget.CoordinatorLayout>
