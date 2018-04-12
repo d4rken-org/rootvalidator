@@ -13,7 +13,7 @@ bugsnag {
 }
 
 def versionMajor = 3
-def versionMinor = 0
+def versionMinor = 1
 def versionTag = ""
 
 android {

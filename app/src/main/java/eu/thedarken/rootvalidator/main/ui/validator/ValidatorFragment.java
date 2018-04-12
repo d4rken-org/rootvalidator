@@ -213,9 +213,9 @@ public class ValidatorFragment extends Fragment implements ValidatorPresenter.Vi
 
     @Override
     public void showNagBar(boolean show) {
-        if (getView() == null) return;
         if (show) {
-            Snackbar.make(getView(), R.string.donate_description, Snackbar.LENGTH_INDEFINITE)
+            if (getView() == null) return;
+            upgradeBar = Snackbar.make(getView(), R.string.donate_description, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.action_donate, v -> presenter.onDonateClicked(getActivity()))
                     .addCallback(new Snackbar.Callback() {
                         @Override
@@ -229,8 +229,8 @@ public class ValidatorFragment extends Fragment implements ValidatorPresenter.Vi
                             upgradeBar = null;
                             super.onDismissed(transientBottomBar, event);
                         }
-                    })
-                    .show();
+                    });
+            upgradeBar.show();
         } else {
             if (upgradeBar != null) upgradeBar.dismiss();
         }
@@ -238,8 +238,8 @@ public class ValidatorFragment extends Fragment implements ValidatorPresenter.Vi
 
     @Override
     public void showDonate(boolean showDonate) {
-        if (getActivity() == null) return;
         this.showDonate = showDonate;
+        if (getActivity() == null) return;
         getActivity().invalidateOptionsMenu();
     }
 }
